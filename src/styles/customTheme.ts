@@ -1,15 +1,22 @@
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme } from '@chakra-ui/react'
 
 const customTheme = extendTheme({
-  colors : {
-    blue : {
-      500 : "#0C2556"
+  colors: {
+    blue: {
+      500: '#0C2556'
+    },
+    gray: {
+      400: '#B5C8D6',
+      600: '#223345'
+    },
+    green: {
+      400: '#27C990'
     }
   },
   styles: {
     global: {
       body: {
-        bg: "#F2F2F2"
+        bg: '#F2F2F2'
       }
     }
   }
