@@ -1,4 +1,4 @@
-import { Flex, Stack } from '@chakra-ui/react'
+import { Avatar, Box, Divider, Flex, Stack, Text } from '@chakra-ui/react'
 import CardHeader from '../components/CardHeader'
 import Title from '../components/Title'
 import { ResponsiveLine } from '@nivo/line'
@@ -8,16 +8,20 @@ const data = [
     id: 1,
     data: [
       {
-        x: '17/01/2021',
-        y: 47
+        x: '17/01',
+        y: 0
       },
       {
-        x: '18/01/2021',
-        y: 75
+        x: '18/01',
+        y: 35
       },
       {
-        x: '19/01/2021',
-        y: 64
+        x: '19/01',
+        y: 65
+      },
+      {
+        x: '20/01',
+        y: 65
       }
     ]
   },
@@ -25,16 +29,20 @@ const data = [
     id: 2,
     data: [
       {
-        x: '17/01/2021',
-        y: 47
+        x: '17/01',
+        y: 5
       },
       {
-        x: '18/01/2021',
-        y: 4
+        x: '18/01',
+        y: 45
       },
       {
-        x: '19/01/2021',
-        y: 64
+        x: '19/01',
+        y: 0
+      },
+      {
+        x: '20/01',
+        y: 30
       }
     ]
   }
@@ -44,84 +52,87 @@ export default function Home() {
   return (
     <>
       <Title name="Resumo" />
-      <Stack spacing="16px" isInline w="100%">
-        <Flex direction="column" p="16px 0" w="70%">
+      <Stack mt="16px" spacing="16px" isInline w="100%">
+        <Flex direction="column" w="70%">
           <Flex w="100%" justify="space-between">
             <CardHeader />
             <CardHeader />
             <CardHeader />
             <CardHeader />
           </Flex>
-          <Flex mt="16px" bg="white" w="100%" h="400px">
-            <ResponsiveLine
-              data={data}
-              curve="natural"
-              margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-              xScale={{ type: 'point' }}
-              yScale={{
-                type: 'linear',
-                min: 'auto',
-                max: 'auto',
-                stacked: true,
-                reverse: false
-              }}
-              yFormat=" >-.2f"
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                orient: 'bottom',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: 'Periodo',
-                legendOffset: 36,
-                legendPosition: 'middle'
-              }}
-              axisLeft={{
-                orient: 'left',
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: 'Vendas',
-                legendOffset: -40,
-                legendPosition: 'middle'
-              }}
-              pointSize={10}
-              pointColor={{ theme: 'background' }}
-              pointBorderWidth={2}
-              pointBorderColor={{ from: 'serieColor' }}
-              pointLabelYOffset={-12}
-              useMesh={true}
-              legends={[
-                {
-                  anchor: 'bottom-right',
-                  direction: 'column',
-                  justify: false,
-                  translateX: 100,
-                  translateY: 0,
-                  itemsSpacing: 0,
-                  itemDirection: 'left-to-right',
-                  itemWidth: 80,
-                  itemHeight: 20,
-                  itemOpacity: 0.75,
-                  symbolSize: 12,
-                  symbolShape: 'circle',
-                  symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                  effects: [
-                    {
-                      on: 'hover',
-                      style: {
-                        itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1
-                      }
-                    }
-                  ]
-                }
-              ]}
-            />
+          <Flex
+            direction="column"
+            p="8px"
+            mt="16px"
+            bg="white"
+            w="100%"
+            h="400px"
+            rounded="sm"
+          >
+            <Flex justifyContent="space-between">
+              <Text color="gray.600" fontWeight="bold">
+                Relatório de vendas
+              </Text>
+              <Stack fontSize={14} spacing="8px" isInline>
+                <Flex>
+                  <Box mr="4px" bg="#27C990" w="24px" h="24px" />
+                  <Text>Entrada</Text>
+                </Flex>
+                <Flex>
+                  <Box mr="4px" bg="#F42E40" w="24px" h="24px" />
+                  <Text>Saída</Text>
+                </Flex>
+              </Stack>
+            </Flex>
+            <Flex w="100%" h="100%">
+              <ResponsiveLine
+                data={data}
+                curve="cardinal"
+                colors={['#27C990', '#F42E40']}
+                margin={{ top: 40, right: 20, bottom: 40, left: 40 }}
+                pointSize={10}
+                enableArea
+                pointColor={{ theme: 'background' }}
+                pointBorderWidth={2}
+                pointBorderColor={{ from: 'serieColor' }}
+                useMesh={true}
+              />
+            </Flex>
           </Flex>
         </Flex>
-        <Flex p="16px" w="30%"></Flex>
+        <Flex
+          rounded="sm"
+          direction="column"
+          mt="16px"
+          bg="white"
+          p="16px"
+          w="30%"
+        >
+          <Text color="gray.600" fontWeight="bold">
+            Produtos Top de Vendas
+          </Text>
+          <Divider mt="16px" />
+          <Stack mt="16px">
+            <Flex
+              p="8px"
+              rounded="md"
+              shadow="md"
+              justify="space-between"
+              align="center"
+              _hover={{ bg: 'gray.100' }}
+              transition="background 0.2s"
+            >
+              <Avatar mr="8px" />
+              <Text w="100%">Par de Meias 43-44</Text>
+              <Text>
+                {Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL'
+                }).format(10)}
+              </Text>
+            </Flex>
+          </Stack>
+        </Flex>
       </Stack>
     </>
   )
